@@ -55,6 +55,19 @@ h1 em, h2 em { color: var(--rose-deep); font-style: italic; }
 .flower-three { top: 38%; left: 0; color: var(--peach); font-size: 1rem; }
 .art-label { position: absolute; right: 6%; bottom: 12%; color: var(--ink-soft); font-family: 'Playfair Display', serif; font-size: 1rem; font-style: italic; line-height: 1.2; text-align: center; transform: rotate(-8deg); }
 .art-label span { color: var(--rose-deep); }
+.runner { position: absolute; right: 13%; bottom: 6%; z-index: 2; width: 34px; height: 50px; opacity: 0.92; filter: drop-shadow(4px 5px 0 rgba(52, 43, 45, 0.18)); }
+.runner-head { position: absolute; top: 0; left: 9px; width: 20px; height: 20px; border-radius: 50% 50% 45% 45%; background: var(--ink); }
+.runner-head::after { position: absolute; top: 7px; right: 3px; width: 4px; height: 4px; border-radius: 50%; content: ''; background: var(--peach); }
+.runner-body { position: absolute; top: 18px; left: 11px; width: 16px; height: 19px; border-radius: 7px 7px 3px 3px; background: var(--rose-deep); transform: rotate(-5deg); }
+.runner-body::before, .runner-body::after { position: absolute; top: 3px; width: 5px; height: 18px; border-radius: 8px; content: ''; background: var(--ink); }
+.runner-body::before { left: -7px; transform: rotate(48deg); }
+.runner-body::after { right: -7px; transform: rotate(-48deg); }
+.runner-leg { position: absolute; top: 34px; width: 6px; height: 19px; border-radius: 5px; background: var(--ink); transform-origin: top center; }
+.runner-leg-one { left: 10px; transform: rotate(28deg); }
+.runner-leg-two { left: 22px; transform: rotate(-25deg); }
+.runner.is-moving { animation: run-and-jump 720ms cubic-bezier(0.2, 0.8, 0.3, 1) both; }
+.runner.is-moving .runner-leg-one { animation: leg-one 220ms ease-in-out 3; }
+.runner.is-moving .runner-leg-two { animation: leg-two 220ms ease-in-out 3; }
 .gift-section { display: grid; min-height: 620px; place-items: center; padding: 20px 0 130px; }
 .gift-card { display: none; position: relative; width: min(100%, 650px); padding: 66px clamp(28px, 8vw, 92px) 70px; overflow: hidden; border: 1px solid rgba(52, 43, 45, 0.18); border-radius: 4px; background: rgba(255, 253, 250, 0.82); box-shadow: 14px 14px 0 rgba(169, 181, 160, 0.66), 0 24px 70px rgba(52, 43, 45, 0.09); text-align: center; animation: card-in 700ms ease both; }
 .gift-card::before { position: absolute; inset: 14px; content: ''; border: 1px solid rgba(187, 104, 106, 0.35); pointer-events: none; }
@@ -73,6 +86,9 @@ h1 em, h2 em { color: var(--rose-deep); font-style: italic; }
 @keyframes heart-beat { 50% { transform: scale(1.08); } }
 @keyframes spin { to { transform: rotate(360deg); } }
 @keyframes spin-reverse { to { transform: rotate(-360deg); } }
+@keyframes run-and-jump { 0% { opacity: 0.7; transform: translateX(-52px) translateY(0); } 35% { opacity: 1; transform: translateX(-18px) translateY(-26px) rotate(-5deg); } 60% { transform: translateX(9px) translateY(0) rotate(4deg); } 100% { transform: translateX(0) translateY(0); } }
+@keyframes leg-one { 50% { transform: rotate(-30deg); } }
+@keyframes leg-two { 50% { transform: rotate(35deg); } }
 @media (max-width: 720px) {
   .page-shell { width: min(100% - 36px, 560px); }
   .site-header { min-height: 70px; }
@@ -85,6 +101,7 @@ h1 em, h2 em { color: var(--rose-deep); font-style: italic; }
   .flower-one { top: 4%; right: 6%; }
   .flower-two { bottom: 4%; left: 5%; }
   .art-label { right: 2%; bottom: 7%; }
+  .runner { right: 12%; bottom: 3%; transform: scale(0.86); }
   h1 { font-size: clamp(3.2rem, 16vw, 5.2rem); }
   .intro { margin: 28px 0 34px; font-size: 0.92rem; }
   .journey { padding-top: 20px; }

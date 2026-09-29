@@ -5,6 +5,7 @@ const stepCount = document.querySelector('#step-count');
 const stepMessage = document.querySelector('#step-message');
 const buttonLabel = document.querySelector('#button-label');
 const progressBar = document.querySelector('#progress-bar');
+const runner = document.querySelector('#runner');
 
 const steps = [
   ['Un pensiero per te', 'Ogni bella sorpresa comincia con un piccolo gesto.'],
@@ -36,6 +37,9 @@ revealButton.addEventListener('click', () => {
   stepMessage.textContent = message;
   progressBar.style.width = `${currentStep * 10}%`;
   document.body.dataset.step = currentStep;
+  runner.classList.remove('is-moving');
+  void runner.offsetWidth;
+  runner.classList.add('is-moving');
 
   if (isComplete) {
     giftCard.classList.add('is-visible');
