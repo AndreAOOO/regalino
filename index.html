@@ -8,8 +8,87 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
-<script src="script.js" defer></script>
+<style>
+@property --a{syntax:'<color>';inherits:true;initial-value:#dff1ee}
+@property --b{syntax:'<color>';inherits:true;initial-value:#f3e9f7}
+:root{--ink:#153a3f;--soft:#4c6a6e;--rose:#e8798f;--milk:#fffdfb}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);font:400 1.05rem/1.65 'Figtree',sans-serif;--a:#dff1ee;--b:#f3e9f7;transition:--a 1.4s,--b 1.4s}
+body[data-s="1"]{--a:#d3e3f6;--b:#e9dff5}
+body[data-s="2"]{--a:#d5f1df;--b:#e2f2ff}
+body[data-s="3"]{--a:#fde3d4;--b:#f8dfe9}
+body[data-s="4"]{--a:#fbe8c1;--b:#f9d7c7}
+body[data-s="5"]{--a:#f8d3df;--b:#e3d5f2}
+body[data-s="6"]{--a:#f6c4d1;--b:#fbe1b3}
+.bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(120% 80% at 15% 0,var(--a),transparent 62%),radial-gradient(110% 90% at 95% 100%,var(--b),transparent 66%),#f7f5f6}
+.dots{position:fixed;top:22px;left:0;right:0;display:flex;justify-content:center;gap:10px}
+.dots i{width:9px;height:12px;border-radius:50% 0 50% 50%;transform:rotate(-45deg) scale(.8);border:1.5px solid var(--ink);opacity:.35;transition:.5s}
+.dots i.done{background:var(--ink);opacity:.9}
+.dots i.now{background:var(--rose);border-color:var(--rose);opacity:1;transform:rotate(-45deg) scale(1.2)}
+main{min-height:100svh;display:grid;place-items:center;padding:72px 24px 48px}
+.st{display:none;flex-direction:column;align-items:center;text-align:center;width:min(100%,36rem)}
+.st.on{display:flex;animation:in .8s cubic-bezier(.2,.7,.2,1)}
+@keyframes in{from{opacity:0;transform:translateY(18px) scale(.98)}}
+h1,h2{font-family:'Fraunces',serif;font-weight:400;line-height:1.02;letter-spacing:-.025em;margin:0 0 .5em}
+h1{font-size:clamp(2.8rem,11vw,5.6rem);font-variation-settings:'opsz' 144}
+h2{font-size:clamp(2rem,7vw,3.4rem)}
+p{margin:0 0 1.2em;color:var(--soft);max-width:30rem}
+.lead{font-family:'Fraunces',serif;font-style:italic;font-size:1.35rem;line-height:1.5;color:var(--ink)}
+.count{font-weight:600;letter-spacing:.05em;color:var(--ink)}
+.btn{font:600 1rem 'Figtree',sans-serif;padding:15px 34px;border:0;border-radius:99px;background:var(--ink);color:var(--milk);cursor:pointer;box-shadow:0 10px 24px -10px rgba(21,58,63,.6);transition:transform .2s,background .2s,opacity .3s}
+.btn:hover{transform:translateY(-2px);background:#0f2d31}
+.btn:disabled{opacity:.3;cursor:default;transform:none}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink);margin-top:28px}
+button:focus-visible{outline:3px solid var(--rose);outline-offset:4px}
+[hidden]{display:none!important}
+
+.bigdrop{position:relative;width:150px;height:150px;margin:0 0 64px;border:0;cursor:pointer;background:radial-gradient(circle at 32% 30%,#fff 0 9%,transparent 10%),linear-gradient(150deg,#9fe0d6,#5bb8c9 55%,#3b8fb5);border-radius:0 50% 50% 50%;transform:rotate(-45deg);box-shadow:0 30px 60px -20px rgba(59,143,181,.7),inset -10px -14px 24px rgba(21,58,63,.18);animation:bob 4s ease-in-out infinite}
+.bigdrop::after{content:'';position:absolute;left:50%;top:50%;width:150px;height:150px;margin:-75px;border-radius:50%;border:2px solid #5bb8c9;opacity:0;animation:ripple 4s ease-out infinite}
+@keyframes bob{50%{transform:rotate(-45deg) translate(8px,8px)}}
+@keyframes ripple{0%{transform:scale(.8);opacity:0}30%{opacity:.6}100%{transform:scale(2.6) translate(30%,30%);opacity:0}}
+
+
+.candles{display:flex;align-items:flex-end;justify-content:center;gap:clamp(12px,4vw,26px);height:210px;margin:8px 0 26px}
+.candle{position:relative;width:40px;height:var(--h);padding:0;border:0;cursor:pointer;border-radius:8px 8px 4px 4px;background:linear-gradient(90deg,#f1cdc7,#fffaf5 45%,#f1cdc7);box-shadow:0 14px 20px -10px rgba(120,50,70,.5)}
+.candle::before{content:'';position:absolute;left:50%;top:-10px;width:2px;height:11px;margin-left:-1px;background:#4a3a3a}
+.candle:not(.lit)::after{content:'';position:absolute;left:50%;top:-38px;width:16px;height:16px;margin-left:-8px;border-radius:50%;border:1.5px dashed var(--ink);animation:hint 2s ease-in-out infinite}
+@keyframes hint{50%{transform:scale(1.3);opacity:.3}}
+.flame{position:absolute;left:50%;bottom:100%;width:16px;height:27px;margin:0 0 10px -8px;border-radius:50%/62% 62% 38% 38%;background:radial-gradient(ellipse at 50% 75%,#fff6c8 0 25%,#ffc857 55%,#ff8a3d);box-shadow:0 0 24px 10px rgba(255,190,90,.5);transform:scale(0);transform-origin:50% 100%;transition:transform .45s cubic-bezier(.3,1.7,.5,1)}
+.candle.lit .flame{transform:scale(1);animation:flick 1.7s ease-in-out .45s infinite}
+@keyframes flick{50%{transform:scale(1.07,.93) rotate(-3deg)}}
+
+.memo{display:grid;grid-template-columns:repeat(3,84px);gap:12px;margin:8px 0 22px;perspective:700px}
+.card{position:relative;width:84px;height:104px;padding:0;border:0;background:none;cursor:pointer;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.3,1.3,.5,1)}
+.card.up,.card.ok{transform:rotateY(180deg)}
+.card span{position:absolute;inset:0;display:grid;place-items:center;border-radius:16px;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.card .back{background:repeating-linear-gradient(45deg,#f7b6c4 0 8px,#f9c9d4 8px 16px);box-shadow:inset 0 0 0 3px rgba(255,255,255,.6),0 10px 18px -10px rgba(120,50,70,.6);font-size:1.7rem;color:#fff}
+.card .face{transform:rotateY(180deg);background:var(--milk);font-size:2.4rem;box-shadow:0 10px 18px -10px rgba(120,50,70,.5)}
+.card.ok .face{background:#eaf7ee;box-shadow:inset 0 0 0 2px #7cc99a}
+
+.play{position:relative;width:100%;height:min(42vh,300px);margin:8px 0 12px;overflow:hidden;border-radius:28px;background:rgba(255,255,255,.35);box-shadow:inset 0 0 0 1.5px rgba(21,58,63,.14)}
+.fall{position:absolute;top:-60px;width:60px;height:60px;padding:0;border:0;background:none;cursor:pointer;animation:fall linear forwards}
+.fall::before{content:'';position:absolute;inset:14px 17px 12px;background:linear-gradient(150deg,#9fe0d6,#3b8fb5);border-radius:0 50% 50% 50%;transform:rotate(-45deg)}
+@keyframes fall{to{top:100%}}
+.garden{display:flex;flex-wrap:wrap;justify-content:center;gap:2px;min-height:2.2rem;font-size:1.7rem;line-height:1}
+.fl{animation:pop .5s cubic-bezier(.3,1.6,.5,1)}
+@keyframes pop{from{transform:scale(0) rotate(-90deg)}}
+
+.scents{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:8px}
+.scents button{display:flex;align-items:center;gap:10px;font:600 1rem 'Figtree',sans-serif;padding:14px 24px 14px 14px;color:var(--ink);background:rgba(255,255,255,.6);border:0;border-radius:99px;box-shadow:inset 0 0 0 1.5px rgba(21,58,63,.2);cursor:pointer;transition:transform .2s,background .2s}
+.scents button::before{content:'';width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff8,var(--c))}
+.scents button:hover{transform:translateY(-3px);background:#fff}
+
+.voucher{position:relative;padding:44px 34px 30px;background:var(--milk);border-radius:6px;box-shadow:0 40px 70px -30px rgba(120,50,70,.55);transform:rotate(-1.5deg);
+-webkit-mask:radial-gradient(circle 13px at 0 62%,#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 13px at 100% 62%,#0000 98%,#000) right/51% 100% no-repeat;mask:radial-gradient(circle 13px at 0 62%,#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 13px at 100% 62%,#0000 98%,#000) right/51% 100% no-repeat}
+.voucher::before{content:'';position:absolute;inset:12px;border:1.5px dashed rgba(232,121,143,.6);border-radius:3px;pointer-events:none}
+.voucher h2{color:var(--rose)}
+.scent{font-weight:600;color:var(--ink)}
+.voucher footer{display:flex;flex-direction:column;gap:2px;margin-top:22px;padding-top:18px;border-top:1.5px solid rgba(21,58,63,.12);font-size:.9rem;color:var(--soft)}
+.voucher footer strong{font:italic 1.9rem 'Fraunces',serif;font-weight:400;color:var(--ink)}
+.pt{position:fixed;top:-30px;width:14px;height:18px;border-radius:70% 0 70% 0;pointer-events:none;z-index:5;animation:petal linear forwards}
+@keyframes petal{to{transform:translate(var(--x),110vh) rotate(720deg)}}
+@media(prefers-reduced-motion:reduce){*,::before,::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition:none!important}}
+</style>
 </head>
 <body data-s="0">
 <div class="bg" aria-hidden="true"></div>
@@ -23,11 +102,11 @@
 </section>
 
 <section class="st">
-  <div class="ring" id="ring"><span id="breath-t">Inspira</span></div>
-  <h2>Respira, con calma.</h2>
-  <p>Segui il cerchio per tre respiri. Il mondo là fuori può aspettare.</p>
-  <p class="count" id="breath-n">0 / 3</p>
-  <button class="btn" id="b-next" data-next disabled>Continua</button>
+  <h2>Accendi le candele.</h2>
+  <p>Toccale una a una: creiamo l'atmosfera giusta.</p>
+  <div class="candles" id="candles"></div>
+  <p class="count" id="c-n">0 / 5</p>
+  <button class="btn" id="c-next" data-next hidden>Continua</button>
 </section>
 
 <section class="st">
@@ -40,9 +119,11 @@
 </section>
 
 <section class="st">
-  <h2>Ora rallenta.</h2>
-  <p class="lead">Non c'è fretta quando si tratta di prendersi cura di te. Per una volta non devi occuparti di niente: ci penso io.</p>
-  <button class="btn" data-next>Continua</button>
+  <h2>Trova le coppie.</h2>
+  <p>Gira le carte e abbina i simboli uguali. Nessun limite di tentativi.</p>
+  <div class="memo" id="memo"></div>
+  <p class="count" id="m-n">0 / 3 coppie</p>
+  <button class="btn" id="m-next" data-next hidden>Continua</button>
 </section>
 
 <section class="st">
@@ -72,5 +153,106 @@
 </section>
 
 </main>
+<script>
+const $ = s => document.querySelector(s), all = s => [...document.querySelectorAll(s)];
+const st = all('.st'), dots = $('#dots'), GOAL = 8;
+const flowers = ['✿', '❀', '✾', '❁'], hues = ['#e8798f', '#f4a55c', '#b9a2e0', '#5bb8c9', '#f2c94c'];
+let i = 0, scent = '', timers = [];
+st.forEach(() => dots.append(document.createElement('i')));
+
+const clear = () => { timers.forEach(t => { clearInterval(t); clearTimeout(t); }); timers = []; };
+
+function go(n) {
+  clear(); i = n; document.body.dataset.s = n;
+  st.forEach((s, k) => s.classList.toggle('on', k === n));
+  [...dots.children].forEach((d, k) => d.className = k < n ? 'done' : k === n ? 'now' : '');
+  scrollTo(0, 0);
+  if (n === 1) candles(); else if (n === 2) play(); else if (n === 3) memory(); else if (n === 6) finale();
+}
+
+function candles() {
+  const box = $('#candles'), nx = $('#c-next'), cnt = $('#c-n'), hs = [96, 130, 110, 142, 102];
+  box.innerHTML = ''; nx.hidden = true; cnt.textContent = '0 / 5'; let lit = 0;
+  hs.forEach(h => {
+    const c = document.createElement('button');
+    c.className = 'candle'; c.style.setProperty('--h', h + 'px'); c.setAttribute('aria-label', 'Accendi la candela');
+    c.innerHTML = '<i class="flame"></i>';
+    c.addEventListener('click', () => {
+      if (c.classList.contains('lit')) return;
+      c.classList.add('lit'); lit++; cnt.textContent = `${lit} / 5`;
+      if (lit === 5) { cnt.textContent = 'Atmosfera pronta.'; nx.hidden = false; }
+    });
+    box.append(c);
+  });
+}
+
+function memory() {
+  const box = $('#memo'), nx = $('#m-next'), cnt = $('#m-n'), sym = ['🌸', '🕯️', '💧'];
+  const deck = [...sym, ...sym].sort(() => Math.random() - .5);
+  box.innerHTML = ''; nx.hidden = true; cnt.textContent = '0 / 3 coppie';
+  let open = [], found = 0, lock = false;
+  deck.forEach(s => {
+    const c = document.createElement('button');
+    c.className = 'card'; c.dataset.s = s; c.setAttribute('aria-label', 'Carta coperta');
+    c.innerHTML = `<span class="back">✿</span><span class="face">${s}</span>`;
+    c.addEventListener('click', () => {
+      if (lock || c.classList.contains('up') || c.classList.contains('ok')) return;
+      c.classList.add('up'); open.push(c);
+      if (open.length < 2) return;
+      const [a, b] = open; open = [];
+      if (a.dataset.s === b.dataset.s) {
+        [a, b].forEach(x => x.classList.replace('up', 'ok')); found++; cnt.textContent = `${found} / 3 coppie`;
+        if (found === 3) { cnt.textContent = 'Tutte trovate!'; nx.hidden = false; }
+      } else {
+        lock = true;
+        timers.push(setTimeout(() => { [a, b].forEach(x => x.classList.remove('up')); lock = false; }, 800));
+      }
+    });
+    box.append(c);
+  });
+}
+
+function play() {
+  const area = $('#play'), garden = $('#garden'), cnt = $('#g-n'), next = $('#g-next');
+  area.innerHTML = garden.innerHTML = ''; next.hidden = true; cnt.textContent = '0 / ' + GOAL;
+  let caught = 0;
+  const spawn = () => {
+    if (caught >= GOAL || area.children.length >= 4) return;
+    const d = document.createElement('button');
+    d.className = 'fall'; d.setAttribute('aria-label', 'Goccia');
+    d.style.left = 4 + Math.random() * 84 + '%';
+    d.style.animationDuration = 4.5 + Math.random() * 2 + 's';
+    d.addEventListener('animationend', () => d.remove());
+    d.addEventListener('pointerdown', () => {
+      d.remove(); caught++;
+      const f = document.createElement('span');
+      f.className = 'fl'; f.textContent = flowers[caught % 4]; f.style.color = hues[caught % 5];
+      garden.append(f); cnt.textContent = `${caught} / ${GOAL}`;
+      if (caught >= GOAL) { area.innerHTML = ''; cnt.textContent = 'Il tuo giardino è fiorito!'; next.hidden = false; }
+    });
+    area.append(d);
+  };
+  spawn(); timers.push(setInterval(spawn, 1000));
+}
+
+function finale() {
+  $('#scent-out').textContent = scent ? 'Profumo scelto: ' + scent : '';
+  const cols = ['#e8798f', '#f4a55c', '#b9a2e0', '#f2c94c', '#f6b6c4'];
+  for (let k = 0; k < 40; k++) {
+    const p = document.createElement('span'); p.className = 'pt';
+    p.style.left = Math.random() * 100 + 'vw'; p.style.background = cols[k % 5];
+    p.style.setProperty('--x', (Math.random() * 200 - 100) + 'px');
+    p.style.animationDuration = 4 + Math.random() * 4 + 's'; p.style.animationDelay = Math.random() * 2.5 + 's';
+    p.addEventListener('animationend', () => p.remove()); document.body.append(p);
+  }
+}
+
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-next]'); if (b && !b.disabled) return go(i + 1);
+  const s = e.target.closest('[data-scent]'); if (s) { scent = s.dataset.scent; go(i + 1); }
+  if (e.target.closest('#again')) go(0);
+});
+go(0);
+</script>
 </body>
 </html>
