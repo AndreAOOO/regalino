@@ -1,70 +1,76 @@
 <!doctype html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Un piccolo regalino dopo tutta la fatica di questi giorni">
-  <title>Una sorpresa per te</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="script.js" defer></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#dff1ee">
+<title>Una sorpresa per te</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script src="script.js" defer></script>
 </head>
-<body>
-  <main class="page-shell">
-    <header class="site-header">
-      <a class="brand" href="#top" aria-label="Torna all'inizio">per te<span>.</span></a>
-      <span class="header-note">una piccola cosa fatta col cuore</span>
-    </header>
-    <section class="hero" id="top" aria-labelledby="page-title">
-      <div class="hero-copy">
-        <p class="eyebrow">Una sorpresa tutta per te</p>
-        <h1 id="page-title">Buon compleanno,<br><em>gocciola.</em></h1>
-        <p class="intro">Ho preparato qualcosa che parla di te: di quanto meriti di fermarti, respirare e lasciarti coccolare. Ma prima c'e' una piccola storia da attraversare.</p>
-        <div class="journey" aria-live="polite">
-          <div class="journey-topline">
-            <span id="step-label">IL TUO MOMENTO</span>
-            <span id="step-count">0 / 10</span>
-          </div>
-          <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
-          <p class="step-message" id="step-message">Ci sei? Ho nascosto una sorpresa proprio qui.</p>
-          <button class="reveal-button" id="reveal-button" type="button" aria-expanded="false" aria-controls="gift-card">
-            <span class="button-prompt" aria-hidden="true">&#8594;</span>
-            <span id="button-label">Cominciamo</span>
-          </button>
-        </div>
-      </div>
-      <div class="hero-art" aria-hidden="true">
-        <div class="game-hud"><span>STAGE 01</span><strong>HEART RUN</strong><span>READY</span></div>
-        <div class="orbital orbital-one"></div>
-        <div class="orbital orbital-two"></div>
-        <div class="flower flower-one">✦</div>
-        <div class="flower flower-two">✦</div>
-        <div class="flower flower-three">✦</div>
-        <div class="sun-ring"><span>♥</span></div>
-        <div class="runner" id="runner">
-          <span class="runner-head"></span>
-          <span class="runner-body"></span>
-          <span class="runner-leg runner-leg-one"></span>
-          <span class="runner-leg runner-leg-two"></span>
-        </div>
-        <div class="game-ground"><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="art-label">per te,<br><span>con amore</span></div>
-      </div>
-    </section>
+<body data-s="0">
+<div class="bg" aria-hidden="true"></div>
+<nav class="dots" id="dots" aria-hidden="true"></nav>
+<main>
 
-    <section class="gift-section" id="gift-section" aria-live="polite">
-      <div class="gift-card" id="gift-card">
-        <div class="card-mark">&#9829;</div>
-        <p class="card-kicker">Il tuo regalo</p>
-        <h2>Una sessione<br><em>di massaggi</em></h2>
-        <p class="card-copy">Un momento tutto tuo per staccare la spina, rilassarti e farti viziare un po'. Perche' te lo meriti, ogni giorno.</p>
-        <div class="card-signature">
-          <span>Con tutto il mio amore</span>
-          <strong>Fiorellino</strong>
-        </div>
-      </div>
-    </section>
+<section class="st on">
+  <button class="bigdrop" data-next aria-label="Tocca la goccia per cominciare"></button>
+  <h1>Buon compleanno, gocciola.</h1>
+  <p>Ho preparato una sorpresa, ma prima c'è un piccolo viaggio: un respiro, un gioco e qualche scelta. Comincia toccando la goccia.</p>
+</section>
 
-    <footer class="footer-note"><span>&#9829;</span> fatto con amore <span>&#9829;</span></footer>
-  </main>
+<section class="st">
+  <div class="ring" id="ring"><span id="breath-t">Inspira</span></div>
+  <h2>Respira, con calma.</h2>
+  <p>Segui il cerchio per tre respiri. Il mondo là fuori può aspettare.</p>
+  <p class="count" id="breath-n">0 / 3</p>
+  <button class="btn" id="b-next" data-next disabled>Continua</button>
+</section>
+
+<section class="st">
+  <h2>Prendi le gocce al volo.</h2>
+  <p>Toccane 8. Non si sbaglia e non c'è fretta: ognuna fa sbocciare un fiore.</p>
+  <div class="play" id="play"></div>
+  <div class="garden" id="garden" aria-live="polite"></div>
+  <p class="count" id="g-n">0 / 8</p>
+  <button class="btn" id="g-next" data-next hidden>Continua</button>
+</section>
+
+<section class="st">
+  <h2>Ora rallenta.</h2>
+  <p class="lead">Non c'è fretta quando si tratta di prendersi cura di te. Per una volta non devi occuparti di niente: ci penso io.</p>
+  <button class="btn" data-next>Continua</button>
+</section>
+
+<section class="st">
+  <h2>Scegli un profumo.</h2>
+  <p>Ti accompagnerà nel tuo momento.</p>
+  <div class="scents">
+    <button data-scent="lavanda" style="--c:#b9a2e0">Lavanda</button>
+    <button data-scent="arancia dolce" style="--c:#f4a55c">Arancia dolce</button>
+    <button data-scent="vaniglia" style="--c:#f2d9a0">Vaniglia</button>
+  </div>
+</section>
+
+<section class="st">
+  <h2>Ricorda quanta strada hai fatto.</h2>
+  <p class="lead">Sono davvero fiero di te. Ed è il motivo per cui questo regalo è arrivato: meriti dolcezza. Ultima tappa.</p>
+  <button class="btn" data-next>Apri il regalo</button>
+</section>
+
+<section class="st">
+  <article class="voucher">
+    <h2>Una sessione di massaggi</h2>
+    <p>Un momento tutto tuo per staccare la spina, rilassarti e farti viziare un po'. Perché te lo meriti, ogni giorno.</p>
+    <p class="scent" id="scent-out"></p>
+    <footer><span>Con tutto il mio amore</span><strong>Fiorellino</strong></footer>
+  </article>
+  <button class="btn ghost" id="again">Rivivi il viaggio</button>
+</section>
+
+</main>
 </body>
 </html>
