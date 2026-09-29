@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Un piccolo regalino dopo tutta la fatica di questi giorni">
+  <title>Una sorpresa per te</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="page-shell">
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Torna all'inizio">per te<span>.</span></a>
+      <span class="header-note">una piccola cosa fatta col cuore</span>
+    </header>
+    <section class="hero" id="top" aria-labelledby="page-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Una sorpresa tutta per te</p>
+        <h1 id="page-title">Buon compleanno,<br><em>gocciola.</em></h1>
+        <p class="intro">Ho preparato qualcosa che parla di te: di quanto meriti di fermarti, respirare e lasciarti coccolare. Ma prima c'e' una piccola storia da attraversare.</p>
+        <div class="journey" aria-live="polite">
+          <div class="journey-topline">
+            <span id="step-label">IL TUO MOMENTO</span>
+            <span id="step-count">0 / 10</span>
+          </div>
+          <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
+          <p class="step-message" id="step-message">Ci sei? Ho nascosto una sorpresa proprio qui.</p>
+          <button class="reveal-button" id="reveal-button" type="button" aria-expanded="false" aria-controls="gift-card">
+            <span class="button-prompt" aria-hidden="true">&#8594;</span>
+            <span id="button-label">Cominciamo</span>
+          </button>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="orbital orbital-one"></div>
+        <div class="orbital orbital-two"></div>
+        <div class="flower flower-one">✦</div>
+        <div class="flower flower-two">✦</div>
+        <div class="flower flower-three">✦</div>
+        <div class="sun-ring"><span>♥</span></div>
+        <div class="art-label">per te,<br><span>con amore</span></div>
+      </div>
+    </section>
+
+    <section class="gift-section" id="gift-card" aria-live="polite">
+      <div class="gift-card" id="gift-card">
+        <div class="card-mark">&#9829;</div>
+        <p class="card-kicker">Il tuo regalo</p>
+        <h2>Una sessione<br><em>di massaggi</em></h2>
+        <p class="card-copy">Un momento tutto tuo per staccare la spina, rilassarti e farti viziare un po'. Perche' te lo meriti, ogni giorno.</p>
+        <div class="card-signature">
+          <span>Con tutto il mio amore</span>
+          <strong>Fiorellino</strong>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer-note"><span>&#9829;</span> fatto con amore <span>&#9829;</span></footer>
+  </main>
+</body>
+</html>
